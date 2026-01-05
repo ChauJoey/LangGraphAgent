@@ -37,6 +37,10 @@ async def information_board_scheduler():
 
 app = FastAPI(lifespan=lifespan)
 
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
 @app.get("/health")
 def health():
     return {"status": "ok"}

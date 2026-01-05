@@ -10,18 +10,21 @@ import json
 from rapidfuzz import fuzz
 import redis
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 llm = HuggingFaceEndpoint(
     endpoint_url="openai/gpt-oss-120b",
     provider="scaleway",
     temperature=0,
     max_new_tokens=2000,
+    huggingfacehub_api_token=os.environ["HUGGINFACE_INFERENCE_TOKEN"]
 )
 
 model = ChatHuggingFace(llm=llm)
 
-import os
-from dotenv import load_dotenv
-load_dotenv()
+
 
 def load_message_board_json() -> List[Dict]:
     info = redis.Redis(

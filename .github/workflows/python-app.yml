@@ -1,0 +1,42 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Update Info Board
+
+on:
+  schedule:
+    # run every 30 secs
+    - cron: "*/30 * * * *"
+
+  # triggler
+  workflow_dispatch:
+
+jobs:
+  update-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run update_info.py
+        env:
+          # 如果你有 Redis / API Key / Token，都放这里
+          REDIS_URL: ${{ secrets.REDIS_URL }}
+          REDIS_USER: ${{ secrets.REDIS_USER }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
+        run: |
+          python info_board/update_info.py
+

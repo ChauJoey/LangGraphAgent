@@ -37,8 +37,6 @@ portCode = {
 def get_vbs_message_board(
     operation: str,
     timeout_seconds: int = 60,
-    max_retries: int = 3,
-    retry_delay: float = 2.0,
 ) -> Dict[str, List[VBSMessage]]:
     """
     Fetch VBS Message Board messages and group by facility_name.
@@ -54,6 +52,7 @@ def get_vbs_message_board(
 
     resp = requests.post(url, json=payload, timeout=timeout_seconds)
     resp.raise_for_status()
+    print(resp.raise_for_status())
     result = resp.json()
 
     # 和 containerchain 一样：success 检查

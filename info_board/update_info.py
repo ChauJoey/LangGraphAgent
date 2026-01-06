@@ -19,12 +19,12 @@ redis_client = redis.Redis(
     password=os.environ["REDIS_PASSWORD"]
 )
 
-def update_info():
+def main():
     boards = update_vbs()
     boards.extend(update_containerchains())
     redis_client.json().set("information_board", Path.root_path(), boards)
 
-    
-# if __name__ == "__main__":
-#     main()
-#     print(redis_client.json().get("information_board") or [])
+if __name__ == "__main__":
+    print("update begin")
+    main()
+    print("update completed")

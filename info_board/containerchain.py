@@ -37,6 +37,7 @@ def get_containerchain_message_board(
 
     resp = requests.post(url, json=payload, timeout=timeout_seconds)
     resp.raise_for_status()
+    print(resp.raise_for_status())
     result = resp.json()
 
     if not result.get("success"):

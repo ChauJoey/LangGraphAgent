@@ -29,9 +29,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run update_info.py
+      - name: Run |
+          python -m info_board.update_info
         env:
-          # 如果你有 Redis / API Key / Token，都放这里
+          # env keys
           REDIS_URL: ${{ secrets.REDIS_URL }}
           REDIS_USER: ${{ secrets.REDIS_USER }}
           REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}

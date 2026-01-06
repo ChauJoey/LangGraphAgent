@@ -8,7 +8,7 @@ on:
     # run every 30 secs
     - cron: "*/30 * * * *"
 
-  # triggler
+  # trigger
   workflow_dispatch:
 
 jobs:
@@ -29,15 +29,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run |
-          python -m info_board.update_info
+      - name: Run update_info.py
         env:
-          # env keys
+          # .env variables
           REDIS_URL: ${{ secrets.REDIS_URL }}
           REDIS_USER: ${{ secrets.REDIS_USER }}
           REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
           REDIS_HOST: ${{ secrets.REDIS_HOST }}
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
         run: |
-          python info_board/update_info.py
+          python -m info_board.update_info
 

@@ -4,9 +4,10 @@
 name: Update Info Board
 
 on:
-  schedule:
+  # schedule:
     # run every 30 secs
-    - cron: "*/30 * * * *"
+    # - cron: "*/30 * * * *"
+    
 
   # trigger
   workflow_dispatch:
